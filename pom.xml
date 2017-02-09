@@ -11,7 +11,6 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <junit.version>4.12</junit.version>
         <spring.framework.version>4.3.5.RELEASE</spring.framework.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -20,7 +19,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
 
@@ -54,6 +53,12 @@
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-webflow</artifactId>
             <version>2.4.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
         </dependency>
     </dependencies>
 </project>

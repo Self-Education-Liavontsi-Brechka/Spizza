@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://www.springframework.org/schema/webflow"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd"
+      start-state="identifyCustomer"><!--By default is the first state-->
+
+    <var name="order" class="net.liavontsibrechka.pizza.domain.Order"/>
+
+    <subflow-state id="identifyCustomer" subflow="pizza/customer">
+        <output name="customer" value="order.customer"/>
+        <transition on="customerReady" to="buildOrder"/>
+    </subflow-state>
+    <subflow-state id="buildOrder" subflow="pizza/order">
+        <input name="order" value="order"/>
+        <transition on="orderCreated" to="takePayment"/>
+    </subflow-state>
+    <subflow-state id="takePayment" subflow="pizza/payment">
+        <input name="order" value="order"/>
+        <transition on="paymentTaken" to="saveOrder"/>
+    </subflow-state>
+
+    <action-state id="saveOrder">
+        <evaluate expression="pizzaFlowActions.saveOrder(order)"/>
+        <transition to="thankCustomer"/>
+    </action-state>
+
+    <view-state id="thankCustomer">
+        <transition to="endState"/>
+    </view-state>
+
+    <end-state id="endState"/>
+
+    <global-transitions>
+        <transition on="cancel" to="endState"/>
+    </global-transitions>
+</flow>
